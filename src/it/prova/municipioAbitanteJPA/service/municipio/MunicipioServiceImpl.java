@@ -172,4 +172,10 @@ public class MunicipioServiceImpl implements MunicipioService {
 		}
 	}
 
+	@Override
+	public List<Municipio> cercaTuttiConDescrizioneIniziaCon(String iniziale) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

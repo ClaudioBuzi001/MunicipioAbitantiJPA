@@ -23,6 +23,8 @@ public interface AbitanteService {
 	//Da aggiungere i metodi implementati in AbitanteDAOImpl
 	public List<Abitante> cercaTuttiGliAbitantiConCognome(String cognome) throws Exception;
 	
+	public List<Abitante> cercaTuttiGliAbitantiConCodiceMunicipioInizaCon(String inizale) throws Exception;
+	
 	
 	//per injection
 	public void setAbitanteDAO(AbitanteDAO abitanteDAO);

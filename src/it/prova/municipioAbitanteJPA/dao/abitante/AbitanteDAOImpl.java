@@ -66,9 +66,13 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 	}
 
 	@Override
-	public List<Abitante> findAllByCodiceMunicipioIniziaCon(String codice) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Abitante> findAllByCodiceMunicipioIniziaCon(String inizialeCodice) throws Exception {
+		if(inizialeCodice.isEmpty())
+			throw new RuntimeException("Errore: input non valido");
+		
+		//Cerco gli abitanti che abitano nel municio che inizia con
+		TypedQuery<Abitante> query = entityManager.createQuery("from Abitante a where a.municipio.codice like ?1", Abitante.class);
+		return query.setParameter(1, inizialeCodice+ "%").getResultList();
 	}
 
 }

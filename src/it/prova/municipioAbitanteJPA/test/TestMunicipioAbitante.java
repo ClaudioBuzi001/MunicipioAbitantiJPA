@@ -36,13 +36,14 @@ public class TestMunicipioAbitante {
 			System.out.println(
 					"In tabella Municipio ci sono " + municipioService.listAllMunicipi().size() + " elementi.");
 
-			//testCercaTuttiGliAbitantiConNome(municipioService, abitanteService);
+			// testCercaTuttiGliAbitantiConNome(municipioService, abitanteService);
 			System.out.println(
 					"In tabella Municipio ci sono " + municipioService.listAllMunicipi().size() + " elementi.");
+
+			// Implemento gli altri test
+			// testCercaTuttiAbitantiConCognome(municipioService, abitanteService);
 			
-			//Implemento gli altri test
-			//testCercaTuttiAbitantiConCognome(municipioService, abitanteService);
-			
+			testCercaTuttiGliAbitantiConCodiceMunicipioInizaCon(abitanteService);
 
 			testLazyInitExc(municipioService, abitanteService);
 
@@ -159,7 +160,7 @@ public class TestMunicipioAbitante {
 	}
 
 	private static void testCercaTuttiAbitantiConCognome(MunicipioService municipioService,
-			AbitanteService abitanteService) throws Exception  {
+			AbitanteService abitanteService) throws Exception {
 		System.out.println(".......testCercaTuttiAbitantiConCognome inizio.............");
 
 		// inserisco un paio di abitanti di test
@@ -188,14 +189,26 @@ public class TestMunicipioAbitante {
 		abitanteService.rimuovi(nuovoAbitante2.getId());
 
 		System.out.println(".......testCercaTuttiAbitantiConCognome fine: PASSED.............");
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
+	private static void testCercaTuttiGliAbitantiConCodiceMunicipioInizaCon(AbitanteService abitanteService)
+			throws Exception {
+		System.out.println(".......testCercaTuttiGliAbitantiConCodiceMunicipioInizaCon inizio.............");
+
+		List<Abitante> result = abitanteService.cercaTuttiGliAbitantiConCodiceMunicipioInizaCon("I");
+
+		if (result.size() == 0)
+			throw new RuntimeException("ERRORE:testCercaTuttiGliAbitantiConCodiceMunicipioInizaCon FAILED");
+
+		for (Abitante abitanteItem : result) {
+			System.out.println(abitanteItem.getNome() + " " + abitanteItem.getCognome());
+		}
+
+		System.out.println(".......testCercaTuttiGliAbitantiConCodiceMunicipioInizaCon fine: PASSED.............");
+
+	}
+
 	private static void testLazyInitExc(MunicipioService municipioService, AbitanteService abitanteService)
 			throws Exception {
 		System.out.println(".......testLazyInitExc inizio.............");
