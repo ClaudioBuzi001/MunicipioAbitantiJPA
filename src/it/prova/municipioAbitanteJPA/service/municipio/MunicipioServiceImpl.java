@@ -174,8 +174,19 @@ public class MunicipioServiceImpl implements MunicipioService {
 
 	@Override
 	public List<Municipio> cercaTuttiConDescrizioneIniziaCon(String iniziale) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			municipioDAO.setEntityManager(entityManager);
+			
+			return municipioDAO.findAllByDescrizioneIniziaCon(iniziale);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;		
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 }
