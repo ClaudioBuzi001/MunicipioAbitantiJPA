@@ -47,6 +47,8 @@ public class TestMunicipioAbitante {
 
 			testCercaTuttiConDescrizioneIniziaCon(municipioService);
 			
+			testCercaTuttiIMunicipiConMinorenni(municipioService);
+			
 			testLazyInitExc(municipioService, abitanteService);
 
 		} catch (Throwable e) {
@@ -229,6 +231,24 @@ public class TestMunicipioAbitante {
 		
 	}
 
+	
+	private static void testCercaTuttiIMunicipiConMinorenni(MunicipioService municipioService) throws Exception {
+		System.out.println(".......testCercaTuttiIMunicipiConMinorenni inizio.............");
+
+		List<Municipio> result = municipioService.cercaTuttiIMunicipiConMinorenni();
+
+		if (result.size() == 0)
+			throw new RuntimeException("testCercaTuttiIMunicipiConMinorenni FAILED");
+
+		for (Municipio municipioItem : result) {
+			System.out.println(municipioItem.getDescrizione()+ " "+ municipioItem.getCodice());
+		}
+
+		System.out.println(".......testCercaTuttiIMunicipiConMinorenni fine: PASSED.............");
+		
+		
+	}
+	
 	private static void testLazyInitExc(MunicipioService municipioService, AbitanteService abitanteService)
 			throws Exception {
 		System.out.println(".......testLazyInitExc inizio.............");
