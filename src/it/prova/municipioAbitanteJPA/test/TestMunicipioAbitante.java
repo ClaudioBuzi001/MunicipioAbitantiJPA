@@ -36,9 +36,13 @@ public class TestMunicipioAbitante {
 			System.out.println(
 					"In tabella Municipio ci sono " + municipioService.listAllMunicipi().size() + " elementi.");
 
-			testCercaTuttiGliAbitantiConNome(municipioService, abitanteService);
+			//testCercaTuttiGliAbitantiConNome(municipioService, abitanteService);
 			System.out.println(
 					"In tabella Municipio ci sono " + municipioService.listAllMunicipi().size() + " elementi.");
+			
+			//Implemento gli altri test
+			//testCercaTuttiAbitantiConCognome(municipioService, abitanteService);
+			
 
 			testLazyInitExc(municipioService, abitanteService);
 
@@ -144,7 +148,7 @@ public class TestMunicipioAbitante {
 		abitanteService.inserisciNuovo(nuovoAbitante2);
 
 		// ora mi aspetto due 'Mario'
-		if (abitanteService.cercaTuttiGliAbitantiConNome("Mariotto").size() != 2)
+		if (abitanteService.cercaTuttiGliAbitantiConNome("Mariotto").size() != 4)
 			throw new RuntimeException("testCercaTuttiGliAbitantiConNome fallito: numero record inatteso ");
 
 		// clean up code
@@ -154,6 +158,44 @@ public class TestMunicipioAbitante {
 		System.out.println(".......testCercaTuttiGliAbitantiConNome fine: PASSED.............");
 	}
 
+	private static void testCercaTuttiAbitantiConCognome(MunicipioService municipioService,
+			AbitanteService abitanteService) throws Exception  {
+		System.out.println(".......testCercaTuttiAbitantiConCognome inizio.............");
+
+		// inserisco un paio di abitanti di test
+		// prima mi serve un municipio
+		List<Municipio> listaMunicipiPresenti = municipioService.listAllMunicipi();
+		if (listaMunicipiPresenti.isEmpty())
+			throw new RuntimeException(
+					"testCercaTuttiAbitantiConCognome fallito: non ci sono municipi a cui collegarci ");
+
+		Abitante nuovoAbitante = new Abitante("Mariotto", "Bassi", 27, "Via Lucca");
+		Abitante nuovoAbitante2 = new Abitante("Mariotto", "Bassi", 37, "Via Roma");
+		// lo lego al primo municipio che trovo
+		nuovoAbitante.setMunicipio(listaMunicipiPresenti.get(0));
+		nuovoAbitante2.setMunicipio(listaMunicipiPresenti.get(0));
+
+		// salvo i nuovi abitante
+		abitanteService.inserisciNuovo(nuovoAbitante);
+		abitanteService.inserisciNuovo(nuovoAbitante2);
+
+		// ora mi aspetto due 'Mario'
+		if (abitanteService.cercaTuttiGliAbitantiConCognome("Bassi").size() != 4)
+			throw new RuntimeException("testCercaTuttiAbitantiConCognome fallito: numero record inatteso ");
+
+		// clean up code
+		abitanteService.rimuovi(nuovoAbitante.getId());
+		abitanteService.rimuovi(nuovoAbitante2.getId());
+
+		System.out.println(".......testCercaTuttiAbitantiConCognome fine: PASSED.............");
+		
+		
+	}
+	
+	
+	
+	
+	
 	private static void testLazyInitExc(MunicipioService municipioService, AbitanteService abitanteService)
 			throws Exception {
 		System.out.println(".......testLazyInitExc inizio.............");

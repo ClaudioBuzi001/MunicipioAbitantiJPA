@@ -19,6 +19,11 @@ public interface AbitanteService {
 
 	public List<Abitante> cercaTuttiGliAbitantiConNome(String nome) throws Exception;
 	
+	
+	//Da aggiungere i metodi implementati in AbitanteDAOImpl
+	public List<Abitante> cercaTuttiGliAbitantiConCognome(String cognome) throws Exception;
+	
+	
 	//per injection
 	public void setAbitanteDAO(AbitanteDAO abitanteDAO);
 

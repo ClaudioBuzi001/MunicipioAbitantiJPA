@@ -56,7 +56,7 @@ public class AbitanteServiceImpl implements AbitanteService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
-	
+
 	@Override
 	public void inserisciNuovo(Abitante abitanteInstance) throws Exception {
 		// questo è come una connection
@@ -148,7 +148,26 @@ public class AbitanteServiceImpl implements AbitanteService {
 			throw e;
 		} finally {
 			EntityManagerUtil.closeEntityManager(entityManager);
-		} 
+		}
+	}
+
+	@Override
+	public List<Abitante> cercaTuttiGliAbitantiConCognome(String cognome) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+
+			// Uso l injection per il dao
+			abitanteDAO.setEntityManager(entityManager);
+
+			// Chiamo il metodo che mi serve
+			return abitanteDAO.findAllByCognome(cognome);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 }

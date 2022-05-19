@@ -61,8 +61,8 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 	// TO DO PER ESERCIZIO
 	@Override
 	public List<Abitante> findAllByCognome(String cognome) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Abitante> query = entityManager.createQuery("from Abitante a where a.cognome like ?1", Abitante.class);
+		return query.setParameter(1, cognome).getResultList();
 	}
 
 	@Override
